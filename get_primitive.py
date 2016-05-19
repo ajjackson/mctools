@@ -3,8 +3,11 @@
 import argparse
 import sys
 import ase
-import ase.io 
-from pyspglib import spglib
+import ase.io
+try:
+    from spglib import spglib
+except ImportError:
+    from pyspglib import spglib
 
 def main(input_file='POSCAR',threshold=1e-5,angle_tolerance=-1.,output_file=False, verbose=False):
 
@@ -33,7 +36,7 @@ def main(input_file='POSCAR',threshold=1e-5,angle_tolerance=-1.,output_file=Fals
     cell, positions, atomic_numbers =  spglib.find_primitive(A,symprec=args.threshold,
                                 angle_tolerance=args.angle_tolerance)
 
-    if positions==None:
+    if positions is None:
         print "This space group doesn't have a more primitive unit cell."
 
     else:

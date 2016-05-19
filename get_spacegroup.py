@@ -3,7 +3,11 @@
 
 import os
 import ase.io
-import pyspglib.spglib as spglib
+try:
+    import spglib.spglib as spglib
+except ImportError:
+    import pyspglib.spglib as spglib
+
 import argparse
 
 def main(filename=False, format=False):
