@@ -1,0 +1,55 @@
+#! /usr/bin/env python
+
+import os
+from os.path import basename, dirname, abspath
+import argparse
+
+try:
+    from configparser import ConfigParser
+except ImportError:
+    from ConfigParser import ConfigParser
+
+import subprocess
+    
+def sendto(server=False, project=False, folders=False):
+
+    if not server:
+        raise Exception('No remote server defined')
+
+    conf = ConfigParser()
+    conf.read(os.path.join(dirname(__file__),
+                           'sendto.conf'))
+    rundir = conf.get(server, 'rundir')
+
+    # Use current directory if none provided
+    if len(folders) == 0:
+        folders = ['os.path.curdir']
+
+    for calc in folders:
+        calc = abspath(calc)
+        # If project isn't given use name of directory two levels
+        # above (Assumes structure /parents/PROJECTS/runs/RUNDIRS)
+        if not project:
+            project = basename(dirname(dirname(calc)))
+
+    rsync_call = ['rsync', '-avzu', calc,
+                  ':'.join((server, os.path.join(basename(rundir),
+                                                 project)))]
+
+    subprocess.call(rsync_call)
+
+def get_args():
+    parser = argparse.ArgumentParser(
+        description="Send calculations folder(s) to remote server"
+        )
+    parser.add_argument('server', type=str,
+                        help="Server name from SSH config")
+    parser.add_argument('-p', '--project', type=str, default=False,
+                        help="Project ID (guess if not provided)")
+    parser.add_argument('folders', type=str, nargs='*')
+    args = parser.parse_args()
+    return vars(args)
+
+if __name__ == '__main__':
+    args = get_args()
+    sendto(**args)
