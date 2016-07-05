@@ -33,9 +33,8 @@ def sendto(server=False, project=False, folders=False):
             project = basename(dirname(dirname(calc)))
 
     rsync_call = ['rsync', '-avzu', calc,
-                  ':'.join((server, os.path.join(basename(rundir),
+                  ':'.join((server, os.path.join(rundir,
                                                  project)))]
-
     subprocess.call(rsync_call)
 
 def get_args():
