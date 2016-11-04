@@ -46,6 +46,25 @@ from/to any ASE-supported structure file format. It can be helpful to
 use **get_spacegroup.py** first in order to identify an appropriate
 symmetry threshold. Call with `-h` flag for usage information.
 
+sendto (submission to remote server)
+------------------------------------
+
+Copy the current directory to a specified remote server. The server
+accounts must be set up in sendto.conf. This is a convenience tool for
+copying files around, and does not submit to a queue.
+
+vasp_charge.py (Electron counting)
+----------------------------------
+
+WORK IN PROGRESS
+
+Report the number of electrons in a proposed vasp calculation
+(NELECT).  The name refers to an intended feature (specify system
+charge). At the moment there is no real user interface.
+
+Uses the VASP_PP_PATH environment variable; if you use ASE for VASP
+calculations this should be set up. Otherwise it will not work.
+
 vectors.py (Lattice vectors)
 ----------------------------
 

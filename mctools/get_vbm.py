@@ -51,14 +51,15 @@ def get_max_eig_from_xml(vasp_xml):
     occupied = ifilter(lambda x: x[1] > 0., all_eigs)
     return max(x[0] for x in occupied)
     
-def main(xml_file='vasprun.xml'):
-    print get_max_eig_from_xml(xml_file)
-    
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(
         description="Get the maximum occupied eigenvalue from a vasp run."
         )
     parser.add_argument("xml_file", nargs='?', default='vasprun.xml',
                         help="Path to vasprun.xml file")
     args = parser.parse_args()
-    main(**vars(args))
+    
+    print get_max_eig_from_xml(args.xml_file)
+    
+if __name__ == '__main__':
+    main()

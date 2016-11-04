@@ -17,7 +17,7 @@ def sendto(server=False, project=False, folders=False):
         raise Exception('No remote server defined')
 
     conf = ConfigParser()
-    conf.read(os.path.join(dirname(__file__),
+    conf.read(os.path.join(dirname(dirname(__file__)),
                            'sendto.conf'))
     rundir = conf.get(server, 'rundir')
 
@@ -49,6 +49,9 @@ def get_args():
     args = parser.parse_args()
     return vars(args)
 
-if __name__ == '__main__':
+def main():
     args = get_args()
     sendto(**args)
+
+if __name__ == '__main__':
+    main()

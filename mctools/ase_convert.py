@@ -11,7 +11,7 @@ def convert(input_filename,output_filename, from_format=None, to_format=None):
 
     structure.write(output_filename, format=to_format)
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(description="Convert between crystal file formats with ASE")
     parser.add_argument('input_file', type=str,
                         help="Path to crystal structure to be converted")
@@ -25,3 +25,6 @@ if __name__ == '__main__':
     args=parser.parse_args()
 
     convert(args.input_file,args.output_file,from_format=args.from_format, to_format=args.to_format)
+    
+if __name__ == '__main__':
+    main()
