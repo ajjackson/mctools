@@ -96,14 +96,6 @@ def report(atoms, nelect, charge=0, setups={}, pp='PBE'):
         nbands = int(ceil((nbands_nospin + 4) / float(ppn)) * ppn)
         print("{0:3}:{1:10}".format(ppn, nbands))
 
-    nbands_spin = int(nelect)
-    print("Occupied bands for spin-polarised: {0}".format(nbands_spin))
-    print("Suggested NBANDS for parallelism in:")
-    for ppn in (8, 12, 16, 24):
-        nbands = int(ceil((nbands_spin + 4) / float(ppn)) * ppn)
-        print("{0:3}:{1:10}".format(ppn, nbands))
-
-
 def main():
     atoms = ase.io.read('POSCAR')
     nelect = get_neutral_electrons(atoms)
