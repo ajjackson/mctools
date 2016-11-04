@@ -62,7 +62,7 @@ Copy the current directory to a specified remote server. The server
 accounts must be set up in sendto.conf. This is a convenience tool for
 copying files around, and does not submit to a queue.
 
-vasp_charge (Electron counting)
+vasp-charge (Electron counting)
 -------------------------------
 
 WORK IN PROGRESS
