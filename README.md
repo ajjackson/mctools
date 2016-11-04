@@ -1,10 +1,19 @@
 # MCTOOLS
 
 Collection of generic pre- and post- processing tools using the [Atomic Simulation Environment](https://wiki.fysik.dtu.dk/ase). 
-Developed while working with [Walsh Materials Design](https://github.com/wmd-group), kept on as a personal toolkit.
+Developed while working with [Walsh Materials Design](https://github.com/wmd-group), kept on as a personal toolkit
+while at [Scanlon Materials Theory Group](https://github.com/smtg-ucl).
 
-ase_convert.py (Convert structure files)
-----------------------------------------
+The recommended way of installing is to clone the repository and make a local installation using pip:
+
+``` shell
+git clone https://github.com/ajjackson/mctools.git
+cd mctools
+pip install --user -e .
+```
+
+ase-convert (Convert structure files)
+-------------------------------------
 Use ASE to read a crystal structure file and write out to target format. Call with `-h` flag for usage information. ASE can also get this information from some output file formats, which is useful.
 
 ```
@@ -15,8 +24,8 @@ bash> ase_convert.py aims.out POSCAR
 bash> ase_convert.py -f vasp MY_SUPER_POSCAR -t cif MY_SUPER_CIF
 ```
 
-get_spacegroup.py (Spacegroup tolerances)
------------------------------------------
+get-spacegroup (Spacegroup tolerances)
+--------------------------------------
 Use [Spglib](http://spg.sourceforge.net) to analyse the symmetry of a
 crystal structure file over a range of distance thresholds. This can
 be useful for identifying when numerical noise or limited convergence
@@ -39,8 +48,8 @@ bash> get_spacegroup.py -i geometry.in.next_step
 |    0.10000    |  P-3m1 (164)      |
 ```
 
-get_primitive.py (Primitive cell generator)
--------------------------------------------
+get-primitive (Primitive cell generator)
+----------------------------------------
 Use [Spglib](http://spg.sourceforge.net) to generate a primitive cell
 from/to any ASE-supported structure file format. It can be helpful to
 use **get_spacegroup.py** first in order to identify an appropriate
@@ -53,8 +62,8 @@ Copy the current directory to a specified remote server. The server
 accounts must be set up in sendto.conf. This is a convenience tool for
 copying files around, and does not submit to a queue.
 
-vasp_charge.py (Electron counting)
-----------------------------------
+vasp_charge (Electron counting)
+-------------------------------
 
 WORK IN PROGRESS
 
@@ -65,8 +74,8 @@ charge). At the moment there is no real user interface.
 Uses the VASP_PP_PATH environment variable; if you use ASE for VASP
 calculations this should be set up. Otherwise it will not work.
 
-vectors.py (Lattice vectors)
-----------------------------
+vectors (Lattice vectors)
+-------------------------
 
 Report lattice vectors in a, b, c, alpha, beta, gamma format.  This is
 useful for comparing structures and makes for more compact and
