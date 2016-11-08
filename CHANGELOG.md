@@ -14,6 +14,8 @@ The changelog format is inspired by [keep-a-changelog](https://github.com/olivie
 
 ## [Unreleased]
 
+- Fix broken get-spacegroup interface
+
 ## 0.1 - 2016-11-4
 
 - Begin proper organisation of repository and packaging
