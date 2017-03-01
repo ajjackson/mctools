@@ -15,6 +15,7 @@ The changelog format is inspired by [keep-a-changelog](https://github.com/olivie
 ## [Unreleased]
 
 - Fix broken get-spacegroup interface
+- Add reader/converter for ATAT SQS files
 
 ## 0.1 - 2016-11-4
 
