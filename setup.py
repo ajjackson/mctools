@@ -9,7 +9,7 @@ project_dir = abspath(dirname(__file__))
 
 setup(
     name='mctools',
-    version='0.2.0',
+    version='1.0.0',
     description='Convenience tools for computational materials chemistry',
     long_description="""
 Just a few handy scripts using ASE.
