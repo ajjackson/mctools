@@ -1,5 +1,10 @@
 #!/usr/bin/env python
-from itertools import ifilter
+from __future__ import print_function
+
+try:
+    from itertools import ifilter as filter
+except ImportError:
+    pass
 
 import argparse
 try:
@@ -29,11 +34,11 @@ def get_eigs(vasp_xml):
                 for eig_set in eigs.iter('set')
                 if ('comment' in eig_set.attrib
                     and 'kpoint' in eig_set.attrib['comment'])]
-    
-    def eig_set_to_lists(eig_set):
-        return map(lambda el: map(float, el.text.split()), eig_set)
 
-    eig_sets = map(eig_set_to_lists, eig_sets)
+    def eig_set_to_lists(eig_set):
+        return list(map(lambda el: list(map(float, el.text.split())), eig_set))
+
+    eig_sets = list(map(eig_set_to_lists, eig_sets))
     return eig_sets
 
 def get_max_eig_from_xml(vasp_xml):
@@ -48,9 +53,9 @@ def get_max_eig_from_xml(vasp_xml):
     # double list comprehension
 
     all_eigs = [eig for kpt_eigs in eigs for eig in kpt_eigs]
-    occupied = ifilter(lambda x: x[1] > 0., all_eigs)
+    occupied = filter(lambda x: x[1] > 0., all_eigs)
     return max(x[0] for x in occupied)
-    
+
 def main():
     parser = argparse.ArgumentParser(
         description="Get the maximum occupied eigenvalue from a vasp run."
@@ -58,8 +63,8 @@ def main():
     parser.add_argument("xml_file", nargs='?', default='vasprun.xml',
                         help="Path to vasprun.xml file")
     args = parser.parse_args()
-    
-    print get_max_eig_from_xml(args.xml_file)
-    
+
+    print(get_max_eig_from_xml(args.xml_file))
+
 if __name__ == '__main__':
     main()

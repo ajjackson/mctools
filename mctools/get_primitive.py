@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import argparse
 import sys
 import ase
@@ -14,8 +15,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Find a primitive unit cell using pyspglib")
     parser.add_argument(
-        '-i',
-        '--input_file',
+        'input_file',
         type=str,
         default='POSCAR',
         help="Path to crystal structure file, recognisable by ASE")
@@ -67,8 +67,8 @@ def get_primitive(input_file='POSCAR',
 
         def vprint(*args):
             for arg in args:
-                print arg,
-            print ""
+                print(arg,)
+            print("")
     else:
 
         def vprint(*args):
@@ -80,7 +80,7 @@ def get_primitive(input_file='POSCAR',
         else:
             A = ase.io.read(input_file, format=input_format)
     except IOError as e:
-        print "I/O error({0}): {1}".format(e.errno, e.strerror)
+        raise Exception("I/O error({0}): {1}".format(e.errno, e.strerror))
         sys.exit()
 
     vprint(
@@ -94,7 +94,7 @@ def get_primitive(input_file='POSCAR',
         A, symprec=threshold, angle_tolerance=angle_tolerance)
 
     if positions is None:
-        print "This space group doesn't have a more primitive unit cell."
+        print("This space group doesn't have a more primitive unit cell.")
 
     else:
         vprint("Primitive cell vectors:")

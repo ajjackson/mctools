@@ -14,6 +14,12 @@ The changelog format is inspired by [keep-a-changelog](https://github.com/olivie
 
 ## [Unreleased]
 
+- Add "get-volume" for quick read of volume
+- Add "get-energy" for quick read of energy
+- Update all "get" tools for Python3 compatibility and simpler interface
+  - Input file is now consistently the first positional argument so no
+    need to remember which optional flag is needed.
+
 ## [0.2] - 2016-11-4
 
 - Fix broken get-spacegroup interface
