@@ -37,6 +37,7 @@ Just a few handy scripts using ASE.
             'get-primitive = mctools.get_primitive:main',
             'get-spacegroup = mctools.get_spacegroup:main',
             'get-vbm = mctools.get_vbm:main',
+            'get-volume = mctools.get_volume:main',
             'sqs-read = mctools.sqs_read:main',
             'sendto = mctools.sendto:main',
             'vasp-charge = mctools.vasp_charge:main',
