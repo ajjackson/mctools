@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 import os
-from os.path import basename, dirname, abspath
+from os.path import basename, dirname, abspath, join, isfile
 import argparse
 
 try:
@@ -10,15 +10,21 @@ except ImportError:
     from ConfigParser import ConfigParser
 
 import subprocess
-    
+
+
 def sendto(server=False, project=False, folders=False):
 
     if not server:
         raise Exception('No remote server defined')
 
+    conf_file = join(os.environ['HOME'], '.sendto.conf')
+    if not isfile(conf_file):
+        raise Exception("No config file found. Server names should be "
+                        "set up with calculation directories "
+                        "in {0}".format(conf_file))
+
     conf = ConfigParser()
-    conf.read(os.path.join(dirname(dirname(__file__)),
-                           'sendto.conf'))
+    conf.read(conf_file)
     rundir = conf.get(server, 'rundir')
 
     # Use current directory if none provided
@@ -37,6 +43,7 @@ def sendto(server=False, project=False, folders=False):
                                                  project)))]
     subprocess.call(rsync_call)
 
+
 def get_args():
     parser = argparse.ArgumentParser(
         description="Send calculations folder(s) to remote server"
@@ -48,6 +55,7 @@ def get_args():
     parser.add_argument('folders', type=str, nargs='*')
     args = parser.parse_args()
     return vars(args)
+
 
 def main():
     args = get_args()
