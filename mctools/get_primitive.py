@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 import argparse
 import sys
 import ase
@@ -81,7 +81,6 @@ def get_primitive(input_file='POSCAR',
             A = ase.io.read(input_file, format=input_format)
     except IOError as e:
         raise Exception("I/O error({0}): {1}".format(e.errno, e.strerror))
-        sys.exit()
 
     vprint(
         "# Space group: ",

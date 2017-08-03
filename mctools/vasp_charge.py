@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 
-from __future__ import print_function
-import ase.io
+from __future__ import print_function, absolute_import, division
+import argparse
 import os
 from math import ceil
-
+import ase.io
 
 def get_neutral_electrons(atoms, pp='PBE', setups={}):
     """Get the number of valence electrons in a neutral structure
@@ -85,7 +85,7 @@ def report(atoms, nelect, charge=0, setups={}, pp='PBE'):
     for el, z in zvals.items():
         print("{0:3s}:{1:10.2f}".format(el, z))
 
-    nbands_nospin = int(ceil(nelect/2))
+    nbands_nospin = int(ceil(nelect / 2))
     print("")
     print("Total electrons: {0}".format(nelect))
     print("")    
@@ -93,11 +93,20 @@ def report(atoms, nelect, charge=0, setups={}, pp='PBE'):
           "calc:{0:4d}".format(nbands_nospin))
     print("Suggested NBANDS for parallelism in:")
     for ppn in (8, 12, 16, 24):
-        nbands = int(ceil((nbands_nospin + 4) / float(ppn)) * ppn)
+        nbands = int(ceil((nbands_nospin + 4) / ppn) * ppn)
         print("{0:3}:{1:10}".format(ppn, nbands))
 
 def main():
-    atoms = ase.io.read('POSCAR')
+    parser = argparse.ArgumentParser(
+        description="Get the expected numbers of electrons and bands")
+    parser.add_argument(
+        'input_file',
+        type=str,
+        default='POSCAR',
+        help="Path to crystal structure file, recognisable by ASE")
+    args = parser.parse_args()
+
+    atoms = ase.io.read(args.input_file)
     nelect = get_neutral_electrons(atoms)
 
     report(atoms, nelect)
