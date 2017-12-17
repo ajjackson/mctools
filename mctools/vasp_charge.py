@@ -21,12 +21,11 @@ def get_neutral_electrons(atoms, pp='PBE', setups={}):
             (e.g. 'potpaw_PBE') can be used
 
         setups (dict): Special POTCAR identities specified per-species
-            as a dict. e.g. {'O': 'pv'}
+            as a dict. e.g. {'O': '_pv'}
 
       
 
     """
-
     zvals = get_zval_dict(atoms, setups=setups, pp=pp)
 
     # Sum over atoms
@@ -67,7 +66,7 @@ def get_zval_dict(atoms, setups={}, pp='PBE'):
     for element in elements:
         if element in setups:
             potcar_path = os.path.join(pp_dir,
-                                       element + '_' + setups[element],
+                                       element + setups[element],
                                        'POTCAR')
         else:
             potcar_path = os.path.join(pp_dir, element, 'POTCAR')
