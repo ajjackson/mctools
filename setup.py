@@ -37,6 +37,7 @@ def main():
         entry_points={
             'console_scripts': [
                 'ase-convert = mctools.ase_convert:main',
+                'fold-prim = mctools.fold_prim:main',
                 'get-energy = mctools.get_energy:main',
                 'get-primitive = mctools.get_primitive:main',
                 'get-spacegroup = mctools.get_spacegroup:main',
