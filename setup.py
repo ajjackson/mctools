@@ -33,7 +33,7 @@ def main():
             ],
         keywords='chemistry ase dft',
         packages=find_packages(),
-        install_requires=['ase', 'spglib'],
+        install_requires=['ase', 'spglib', 'matplotlib'],
         entry_points={
             'console_scripts': [
                 'ase-convert = mctools.ase_convert:main',
@@ -43,6 +43,7 @@ def main():
                 'get-spacegroup = mctools.get_spacegroup:main',
                 'get-vbm = mctools.get_vbm:main',
                 'get-volume = mctools.get_volume:main',
+                'plot-cplap-ternary = mctools.plot_cplap_ternary:main',
                 'sqs-read = mctools.sqs_read:main',
                 'sendto = mctools.sendto:main',
                 'vasp-charge = mctools.vasp_charge:main',

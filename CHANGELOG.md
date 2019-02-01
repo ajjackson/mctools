@@ -14,6 +14,7 @@ The changelog format is inspired by [keep-a-changelog](https://github.com/olivie
 
 ## [Unreleased]
 - "sendto" now looks for a config file in home directory
+- New CPLAP plotter
 
 ## [1.0] - 2016-04-25
 
