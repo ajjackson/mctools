@@ -12,7 +12,7 @@ except ImportError:
 import subprocess
 
 
-def sendto(server=False, project=False, folders=False):
+def sendto(server=False, project=False, folders=False, nw=False):
 
     if not server:
         raise Exception('No remote server defined')
@@ -41,6 +41,12 @@ def sendto(server=False, project=False, folders=False):
     rsync_call = ['rsync', '-avzu', calc,
                   ':'.join((server, os.path.join(rundir,
                                                  project)))]
+
+    if nw:
+        rsync_call += ['--exclude', 'WAVECAR',
+                       '--exclude', 'CHGCAR',
+                       '--exclude', 'CHG']
+
     subprocess.call(rsync_call)
 
 
@@ -52,6 +58,8 @@ def get_args():
                         help="Server name from SSH config")
     parser.add_argument('-p', '--project', type=str, default=False,
                         help="Project ID (guess if not provided)")
+    parser.add_argument('--nw', '--no-wavecar', action='store_true',
+                        help="Don't include wavecar, chgcar, chg")
     parser.add_argument('folders', type=str, nargs='*')
     args = parser.parse_args()
     return vars(args)
