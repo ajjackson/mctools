@@ -48,6 +48,13 @@ bash> get_spacegroup.py -i geometry.in.next_step
 |    0.10000    |  P-3m1 (164)      |
 ```
 
+get-minimum (Extract optimum from trajectory)
+---------------------------------------------
+Use ASE to import a trajectory, typically a vasprun.xml or OUTCAR file
+from a structure relaxation. Find the step with lowest energy and
+write it out to a file. This is useful for salvaging optimisation
+calculations that get 'lost'.
+
 get-primitive (Primitive cell generator)
 ----------------------------------------
 Use [Spglib](http://spg.sourceforge.net) to generate a primitive cell
