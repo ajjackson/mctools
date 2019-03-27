@@ -16,7 +16,7 @@ The changelog format is inspired by [keep-a-changelog](https://github.com/olivie
 - "sendto" now looks for a config file in home directory
 - "sendto" options to skip large VASP files
 - New CPLAP plotter
-
+- Add "get-minimum" for quick extraction of low-energy structure from trajectory
 
 ## [1.0] - 2016-04-25
 

@@ -39,6 +39,7 @@ def main():
                 'ase-convert = mctools.ase_convert:main',
                 'fold-prim = mctools.fold_prim:main',
                 'get-energy = mctools.get_energy:main',
+                'get-minimum = mctools.get_minimum:main',
                 'get-primitive = mctools.get_primitive:main',
                 'get-spacegroup = mctools.get_spacegroup:main',
                 'get-vbm = mctools.get_vbm:main',
