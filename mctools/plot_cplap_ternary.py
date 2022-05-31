@@ -69,7 +69,7 @@ def plot_cplap_ternary(output='plot-2d.pdf',
     ax = fig.add_subplot(gs.new_subplotspec((0, ratio[1]), colspan=ratio[0]))
     cax = fig.add_subplot(gs.new_subplotspec((0, 0), colspan=ratio[1]))
 
-    with open('grid.dat', 'rt') as f:
+    with open(grid_file, 'rt') as f:
 
         # Scroll to formula and read
         for _ in range(3):
