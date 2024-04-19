@@ -24,6 +24,7 @@ requires-python = ">=3.9"
 dependencies = [
     "asciichartpy",
     "ase",
+    "euphonic",
     "spglib",
     "matplotlib",
 ]
@@ -42,6 +43,7 @@ get-primitive = "mctools.generic.get_primitive:main"
 get-spacegroup = "mctools.generic.get_spacegroup:main"
 get-vbm = "mctools.vasp.get_vbm:main"
 get-volume = "mctools.generic.get_volume:main"
+phonon-dispersion-compare = "mctools.phonon.phonon_dispersion_compare:main"
 plot-cplap-ternary = "mctools.other.plot_cplap_ternary:main"
 sqs-read = "mctools.other.sqs_read:main"
 sendto = "mctools.other.sendto:main"
