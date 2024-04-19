@@ -1,17 +1,10 @@
-#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function, absolute_import
 import argparse
 import os
 
 import ase.io
-
-
-try:
-    import spglib.spglib as spglib
-except ImportError:
-    import pyspglib.spglib as spglib
+import spglib
 
 
 def get_spacegroup(filename=False, format=False):
@@ -46,7 +39,3 @@ def main():
                         help="File format for ASE importer")
     args = parser.parse_args()
     get_spacegroup(filename=args.filename, format=args.format)
-
-
-if __name__ == "__main__":
-    main()

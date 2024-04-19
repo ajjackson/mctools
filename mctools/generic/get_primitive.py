@@ -1,13 +1,8 @@
-#!/usr/bin/env python
-
-from __future__ import print_function, absolute_import
 import argparse
+
 import ase
 import ase.io
-try:
-    from spglib import spglib
-except ImportError:
-    from pyspglib import spglib
+import spglib
 
 
 def main():
@@ -118,7 +113,3 @@ def get_primitive(input_file='POSCAR',
                 atoms.write(output_file, format="vasp", vasp5=True)
             else:
                 atoms.write(output_file, format=output_format)
-
-
-if __name__ == "__main__":
-    main()

@@ -1,5 +1,3 @@
-#! /usr/bin/env python
-
 ###############################################################################
 # Copyright 2017 Adam Jackson
 ###############################################################################
@@ -17,7 +15,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###############################################################################
 
-from __future__ import print_function
 import ase.io
 from argparse import ArgumentParser
 
@@ -28,7 +25,6 @@ def get_volume(filename):
 
 
 def main():
-
     parser = ArgumentParser(description="Read volume from chemical structure")
     parser.add_argument("filename", type=str, nargs='?',
                         default="geometry.in",
@@ -38,7 +34,3 @@ def main():
 
     volume = get_volume(args.filename)
     print(volume)
-
-
-if __name__ == '__main__':
-    main()

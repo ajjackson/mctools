@@ -1,4 +1,3 @@
-from __future__ import print_function, absolute_import
 import argparse
 import ase.io
 
@@ -49,7 +48,3 @@ def get_minimum(input_file='POSCAR',
         atoms.write(output_file, format="vasp", vasp5=True, direct=True)
     else:
         atoms.write(output_file, format=output_format)
-
-
-if __name__ == "__main__":
-    main()

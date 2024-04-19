@@ -1,4 +1,3 @@
-#! /usr/bin/env python
 # -*- encoding: utf-8 -*-
 """Get lattice vector in a, b, c, α, β, γ format from ase-compatible file"""
 
@@ -19,7 +18,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###############################################################################
 
-from __future__ import absolute_import, print_function, division
 from optparse import OptionParser
 import numpy as np
 import ase.io
@@ -83,7 +81,3 @@ def main():
               '{5:.{7}f}'.format(a, b, c, alpha, beta, gamma,
                                  options.precision_length,
                                  options.precision_angle))
-
-
-if __name__ == '__main__':
-    main()
