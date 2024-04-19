@@ -22,6 +22,7 @@ classifiers=[
 ]
 requires-python = ">=3.9"
 dependencies = [
+    "asciichartpy",
     "ase",
     "spglib",
     "matplotlib",
@@ -44,5 +45,6 @@ get-volume = "mctools.generic.get_volume:main"
 plot-cplap-ternary = "mctools.other.plot_cplap_ternary:main"
 sqs-read = "mctools.other.sqs_read:main"
 sendto = "mctools.other.sendto:main"
+tail-mace-fit = "mctools.mace.tail_mace_fit:main"
 vasp-charge = "mctools.vasp.vasp_charge:main"
 vectors = "mctools.generic.vectors:main"
