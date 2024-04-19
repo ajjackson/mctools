@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+"""Get primitive cell from supercell"""
 from argparse import ArgumentParser
 from os.path import isfile
 from json import loads
@@ -27,28 +27,28 @@ def fold_prim(supercell_file, supercell_matrix, output='prim_cell_lattice.in'):
             dummy structure with correct lattice vectors
     """
 
-    R_supercell = matrix(ase.io.read(supercell_file).cell)
+    r_supercell = matrix(ase.io.read(supercell_file).cell)
 
     if isfile(supercell_matrix):
-        with open(supercell_matrix, 'r') as f:
+        with open(supercell_matrix, 'r', encoding="utf-8") as f:
             for i in range(3):
                 f.readline()
             rows = [f.readline() for i in range(3)]
 
-        S = [[float(x) for x in row.split()] for row in rows]
-        S = matrix(S)
-        print(S)
+        supercell_matrix = [[float(x) for x in row.split()] for row in rows]
+        supercell_matrix = matrix(supercell_matrix)
+        print(supercell_matrix)
 
     elif '[' in supercell_matrix:
-        S = matrix(loads(supercell_matrix))
+        supercell_matrix = matrix(loads(supercell_matrix))
 
     else:
-        S = [float(x) for x in supercell_matrix.split()]
-        assert len(S) == 9
-        S = matrix(S)
-        S = S.reshape((3, 3))
+        supercell_matrix = [float(x) for x in supercell_matrix.split()]
+        assert len(supercell_matrix) == 9
+        supercell_matrix = matrix(supercell_matrix)
+        supercell_matrix = supercell_matrix.reshape((3, 3))
 
-    new_cell = inv(S) * R_supercell
+    new_cell = inv(supercell_matrix) * r_supercell
 
     atoms = Atoms('X', cell=new_cell)
 
@@ -58,7 +58,7 @@ def fold_prim(supercell_file, supercell_matrix, output='prim_cell_lattice.in'):
     return atoms
 
 
-def main():
+def main():  # pylint: disable=missing-function-docstring
     parser = ArgumentParser(description="""
         Get a dummy primitive cell, given a supercell structure and matrix.
         The purpose of this is to set up calculations with BANDUP, which may
@@ -71,10 +71,10 @@ def main():
                         help="Structure file for relaxed supercell")
     parser.add_argument(
         'matrix', type=str,
-        help=("""Supercell matrix. Either provide a path to an ATAT structure
+        help="""Supercell matrix. Either provide a path to an ATAT structure
                  file, or provide matrix as a quoted string in form
-                              '[[ax, ay, az], [bx, by, bz], [cx, cy, cz]]'
-                              or 'ax ay az bx by bz cx cy cz' """))
+                 '[[ax, ay, az], [bx, by, bz], [cx, cy, cz]]'
+                 or 'ax ay az bx by bz cx cy cz' """)
     parser.add_argument('-o', '--output', type=str,
                         default='prim_cell_lattice.in',
                         help="Path for output file in VASP format.")
