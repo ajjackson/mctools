@@ -8,11 +8,9 @@ from setuptools import setup, find_packages
 
 def main():
     """Install the package using setuptools"""
-    # project_dir = abspath(dirname(__file__))
-
     setup(
         name='mctools',
-        version='1.0.0',
+        version='1.1',
         description='Convenience tools for computational materials chemistry',
         long_description="""
     Just a few handy scripts using ASE.
@@ -27,7 +25,7 @@ def main():
             'Intended Audience :: Science/Research',
             'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
             'Natural Language :: English',
-            'Programming Language :: Python :: 2.7',
+            'Programming Language :: Python :: 3',
             'Topic :: Scientific/Engineering :: Chemistry',
             'Topic :: Scientific/Engineering :: Physics'
             ],

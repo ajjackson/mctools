@@ -12,13 +12,15 @@ expected to be especially active and follows a simplified Semantic Versioning:
 
 The changelog format is inspired by [keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
-## [Unreleased]
+## [1.1] - 2024-04-19
+Slap a version number on "unreleased" stuff before API-breaking v2
+
 - "sendto" now looks for a config file in home directory
 - "sendto" options to skip large VASP files
 - New CPLAP plotter
 - Add "get-minimum" for quick extraction of low-energy structure from trajectory
 
-## [1.0] - 2016-04-25
+## [1.0] - 2017-04-25
 
 - Add "get-volume" for quick read of volume
 - Add "get-energy" for quick read of energy
@@ -26,7 +28,7 @@ The changelog format is inspired by [keep-a-changelog](https://github.com/olivie
   - Input file is now consistently the first positional argument so no
     need to remember which optional flag is needed.
 
-## [0.2] - 2016-11-04
+## [0.2] - 2016-03-01
 
 - Fix broken get-spacegroup interface
 - Add reader/converter for ATAT SQS files
