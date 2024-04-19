@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mctools"
+version = "1.1"
+authors = [
+    {name = "Adam J. Jackson", email = "a.j.jackson@physics.org"},
+]
+description = "Convenience tools for computational materials chemistry"
+keywords =  ["chemistry", "ASE", "DFT"]
+license = {text = "GPL v3"}
+classifiers=[
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "ase",
+    "spglib",
+    "matplotlib",
+]
+
+[project.urls]
+Repository = "https://github.com/ajjackson/mctools"
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"]}
+
+[project.scripts]
+fold-prim = "mctools.generic.fold_prim:main"
+get-energy = "mctools.generic.get_energy:main"
+get-minimum = "mctools.generic.get_minimum:main"
+get-primitive = "mctools.generic.get_primitive:main"
+get-spacegroup = "mctools.generic.get_spacegroup:main"
+get-vbm = "mctools.vasp.get_vbm:main"
+get-volume = "mctools.generic.get_volume:main"
+plot-cplap-ternary = "mctools.other.plot_cplap_ternary:main"
+sqs-read = "mctools.other.sqs_read:main"
+sendto = "mctools.other.sendto:main"
+vasp-charge = "mctools.vasp.vasp_charge:main"
+vectors = "mctools.generic.vectors:main"
