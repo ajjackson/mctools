@@ -21,9 +21,11 @@ from __future__ import print_function
 import ase.io
 from argparse import ArgumentParser
 
+
 def get_volume(filename):
     atoms = ase.io.read(filename)
     return atoms.get_volume()
+
 
 def main():
 
@@ -36,6 +38,7 @@ def main():
 
     volume = get_volume(args.filename)
     print(volume)
+
 
 if __name__ == '__main__':
     main()

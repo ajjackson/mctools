@@ -2,7 +2,6 @@
 
 from __future__ import print_function, absolute_import
 import argparse
-import sys
 import ase
 import ase.io
 try:
@@ -115,7 +114,7 @@ def get_primitive(input_file='POSCAR',
                     atoms.write(output_file, vasp5=True)
                 except TypeError:
                     atoms.write(output_file)
-            elif output_format is "vasp":
+            elif output_format == "vasp":
                 atoms.write(output_file, format="vasp", vasp5=True)
             else:
                 atoms.write(output_file, format=output_format)

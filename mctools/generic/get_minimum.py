@@ -45,7 +45,7 @@ def get_minimum(input_file='POSCAR',
             atoms.write(output_file, vasp5=True, direct=True)
         except TypeError:
             atoms.write(output_file)
-    elif output_format is "vasp":
+    elif output_format == "vasp":
         atoms.write(output_file, format="vasp", vasp5=True, direct=True)
     else:
         atoms.write(output_file, format=output_format)

@@ -21,10 +21,12 @@ from __future__ import absolute_import, print_function
 from argparse import ArgumentParser
 import ase.io
 
+
 def get_energy(filename):
     """Wrap ASE to get calculated energy from output file"""
     atoms = ase.io.read(filename)
     return atoms.get_total_energy()
+
 
 def main():
     """Get calculated energy from output file using ASE"""
@@ -38,6 +40,7 @@ def main():
 
     energy = get_energy(args.filename)
     print(energy)
+
 
 if __name__ == '__main__':
     main()

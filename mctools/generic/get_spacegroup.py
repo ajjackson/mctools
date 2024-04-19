@@ -2,23 +2,26 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function, absolute_import
+import argparse
 import os
+
 import ase.io
+
+
 try:
     import spglib.spglib as spglib
 except ImportError:
     import pyspglib.spglib as spglib
 
-import argparse
 
 def get_spacegroup(filename=False, format=False):
 
     if filename:
         pass
     elif os.path.isfile('geometry.in'):
-        filename='geometry.in'
+        filename = 'geometry.in'
     elif os.path.isfile('POSCAR'):
-        filename='POSCAR'
+        filename = 'POSCAR'
     else:
         raise Exception('No input file!')
 
@@ -27,13 +30,13 @@ def get_spacegroup(filename=False, format=False):
     else:
         atoms = ase.io.read(filename)
 
-
     print("| Threshold / Å |    Space group    |")
     print("|---------------|-------------------|")
 
     for threshold in (1e-5, 1e-4, 5e-4, 1e-3, 5e-3, 1e-2, 5e-2, 1e-1):
         print("|    {0:0.5f}    |  {1: <16} |".format(
             threshold, spglib.get_spacegroup(atoms, symprec=threshold)))
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -43,6 +46,7 @@ def main():
                         help="File format for ASE importer")
     args = parser.parse_args()
     get_spacegroup(filename=args.filename, format=args.format)
+
 
 if __name__ == "__main__":
     main()
