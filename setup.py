@@ -34,19 +34,18 @@ def main():
         install_requires=['ase', 'spglib', 'matplotlib'],
         entry_points={
             'console_scripts': [
-                'ase-convert = mctools.ase_convert:main',
-                'fold-prim = mctools.fold_prim:main',
-                'get-energy = mctools.get_energy:main',
-                'get-minimum = mctools.get_minimum:main',
-                'get-primitive = mctools.get_primitive:main',
-                'get-spacegroup = mctools.get_spacegroup:main',
-                'get-vbm = mctools.get_vbm:main',
-                'get-volume = mctools.get_volume:main',
-                'plot-cplap-ternary = mctools.plot_cplap_ternary:main',
-                'sqs-read = mctools.sqs_read:main',
-                'sendto = mctools.sendto:main',
-                'vasp-charge = mctools.vasp_charge:main',
-                'vectors = mctools.vectors:main'
+                'fold-prim = mctools.generic.fold_prim:main',
+                'get-energy = mctools.generic.get_energy:main',
+                'get-minimum = mctools.generic.get_minimum:main',
+                'get-primitive = mctools.generic.get_primitive:main',
+                'get-spacegroup = mctools.generic.get_spacegroup:main',
+                'get-vbm = mctools.vasp.get_vbm:main',
+                'get-volume = mctools.generic.get_volume:main',
+                'plot-cplap-ternary = mctools.other.plot_cplap_ternary:main',
+                'sqs-read = mctools.other.sqs_read:main',
+                'sendto = mctools.other.sendto:main',
+                'vasp-charge = mctools.vasp.vasp_charge:main',
+                'vectors = mctools.generic.vectors:main'
                 ]
             }
         )
