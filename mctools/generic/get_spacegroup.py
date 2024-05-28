@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-import os
 from pathlib import Path
 from typing import Optional
 
@@ -11,19 +10,19 @@ import spglib
 
 def get_default_file() -> Path:
     for candidate in ("geometry.in", "POSCAR", "castep.cell"):
-        if (input := Path.cwd() / candidate).is_file():
-            return input
-    else:
-         raise ValueError("Input file not specified, no default found.")
+        if (structure_file := Path.cwd() / candidate).is_file():
+            return structure_file
+
+    raise ValueError("Input file not specified, no default found.")
 
 
 def get_spacegroup(filename: Optional[Path] = None,
-                   format: Optional[str] = None):
+                   filetype: Optional[str] = None):
 
     if filename is None:
         filename = get_default_file()
 
-    atoms = ase.io.read(str(filename), format=format)
+    atoms = ase.io.read(str(filename), format=filetype)
     cell = (atoms.cell.array, atoms.get_scaled_positions(), atoms.numbers)
 
     print("| Threshold / Å |    Space group    |")
@@ -36,9 +35,9 @@ def get_spacegroup(filename: Optional[Path] = None,
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('filename', type=Path, default=None, nargs="?",
+    parser.add_argument("filename", type=Path, default=None, nargs="?",
                         help="Input structure file")
-    parser.add_argument('-f', '--format', type=str, default=None,
+    parser.add_argument("-f", "--filetype", type=str, default=None,
                         help="File format for ASE importer")
     args = parser.parse_args()
-    get_spacegroup(filename=args.filename, format=args.format)
+    get_spacegroup(filename=args.filename, filetype=args.filetype)
