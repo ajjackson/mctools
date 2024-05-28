@@ -6,22 +6,15 @@ and developed further while at [Scanlon Materials Theory Group](https://github.c
 
 The recommended way of installing is to clone the repository and make a local installation using pip:
 
-``` shell
+```bash
 git clone https://github.com/ajjackson/mctools.git
 cd mctools
 pip install --user -e .
 ```
 
-ase-convert (Convert structure files)
--------------------------------------
-Use ASE to read a crystal structure file and write out to target format. Call with `-h` flag for usage information. ASE can also get this information from some output file formats, which is useful.
-
-```
-# EXAMPLE: read relaxed structure from aims output and write VASP input
-bash> ase_convert.py aims.out POSCAR
-
-# EXAMPLE: Convert between files with non-standard names
-bash> ase_convert.py -f vasp MY_SUPER_POSCAR -t cif MY_SUPER_CIF
+To run unit tests, install pytest and run with
+```bash
+python -m pytest
 ```
 
 get-spacegroup (Spacegroup tolerances)
