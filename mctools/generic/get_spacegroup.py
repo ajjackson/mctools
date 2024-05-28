@@ -23,12 +23,14 @@ def get_spacegroup(filename=False, format=False):
     else:
         atoms = ase.io.read(filename)
 
+    cell = (atoms.cell.array, atoms.get_scaled_positions(), atoms.numbers)
+
     print("| Threshold / Å |    Space group    |")
     print("|---------------|-------------------|")
 
     for threshold in (1e-5, 1e-4, 5e-4, 1e-3, 5e-3, 1e-2, 5e-2, 1e-1):
         print("|    {0:0.5f}    |  {1: <16} |".format(
-            threshold, spglib.get_spacegroup(atoms, symprec=threshold)))
+            threshold, spglib.get_spacegroup(cell, symprec=threshold)))
 
 
 def main():
