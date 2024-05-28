@@ -1,4 +1,6 @@
 from argparse import ArgumentParser
+from typing import List, Optional
+
 import ase.io
 
 
@@ -8,7 +10,7 @@ def get_energy(filename):
     return atoms.get_total_energy()
 
 
-def main():
+def main(params: Optional[List[str]] = None):
     """Get calculated energy from output file using ASE"""
 
     parser = ArgumentParser(description="Read energy from output")
@@ -16,7 +18,10 @@ def main():
                         default="vasprun.xml",
                         help="Path to ab initio output file")
 
-    args = parser.parse_args()
+    if params:
+        args = parser.parse_args(params)
+    else:
+        args = parser.parse_args()
 
     energy = get_energy(args.filename)
     print(energy)
