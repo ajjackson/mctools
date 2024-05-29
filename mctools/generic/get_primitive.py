@@ -58,28 +58,26 @@ def get_primitive(input_file='POSCAR',
         verbose = True
 
     if verbose:
-
         def vprint(*args):
             for arg in args:
                 print(arg,)
             print("")
     else:
-
         def vprint(*args):
             pass
 
     atoms = ase.io.read(input_file, format=input_format)
-    cell = (atoms.cell.array, atoms.get_scaled_positions(), atoms.numbers)
+    atoms_spglib = (atoms.cell.array, atoms.get_scaled_positions(), atoms.numbers)
 
     vprint(
         "# Space group: ",
         str(
             spglib.get_spacegroup(
-                cell, symprec=threshold, angle_tolerance=angle_tolerance)),
+                atoms_spglib, symprec=threshold, angle_tolerance=angle_tolerance)),
         '\n')
 
     cell, positions, atomic_numbers = spglib.find_primitive(
-        A, symprec=threshold, angle_tolerance=angle_tolerance)
+        atoms_spglib, symprec=threshold, angle_tolerance=angle_tolerance)
 
     if positions is None:
         print("This space group doesn't have a more primitive unit cell.")
