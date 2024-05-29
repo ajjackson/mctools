@@ -26,7 +26,7 @@ REF_TEXT = textwrap.dedent(
 )
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def symmetry_broken_cu() -> ase.Atoms:
     atoms = ase.build.bulk("Cu", cubic=True) * (2, 2, 2)
 
