@@ -1,4 +1,5 @@
 import argparse
+from typing import Any, Dict
 
 import ase
 import ase.io
@@ -7,43 +8,64 @@ import spglib
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Find a primitive unit cell using pyspglib")
+        description="Find a primitive unit cell using spglib")
     parser.add_argument(
-        'input_file',
+        "input_file",
         type=str,
-        default='POSCAR',
-        help="Path to crystal structure file, recognisable by ASE")
+        default="POSCAR",
+        help="Path to crystal structure file, recognisable by ASE",
+    )
     parser.add_argument(
-        '--input_format',
+        "--input-format",
+        dest="input_format",
         type=str,
-        help="Format for input file (needed if ASE can't guess from filename)")
+        help="Format for input file (needed if ASE can't guess from filename)",
+    )
     parser.add_argument(
-        '-t',
-        '--threshold',
+        "-t",
+        "--threshold",
         type=float,
         default=1e-05,
-        help=("Distance threshold in AA for symmetry reduction "
-              "(corresponds to spglib 'symprec' keyword)"))
+        help=(
+            "Distance threshold in AA for symmetry reduction "
+            "(corresponds to spglib 'symprec' keyword)"
+        ),
+    )
     parser.add_argument(
-        '-a',
-        '--angle_tolerance',
+        "-a",
+        "--angle-tolerance",
+        dest="angle_tolerance",
         type=float,
         default=-1.0,
-        help="Angle tolerance for symmetry reduction")
+        help="Angle tolerance for symmetry reduction",
+    )
     parser.add_argument(
-        '-o', '--output_file', default=None, help="Path/filename for output")
+        "-o",
+        "--output-file",
+        default=None,
+        dest="output_file",
+        help="Path/filename for output",
+    )
     parser.add_argument(
-        '--output_format',
+        "--output-format",
+        dest="output_format",
         type=str,
-        help="Format for input file (needed if ASE can't guess from filename)")
+        help="Format for input file (needed if ASE can't guess from filename)",
+    )
     parser.add_argument(
-        '-v',
-        '--verbose',
+        "-v",
+        "--verbose",
         action="store_true",
-        help="Print output to screen even when writing to file.")
+        help="Print output to screen even when writing to file.",
+    )
     args = parser.parse_args()
 
-    get_primitive(**vars(args))
+    get_primitive(**snake_case_args(vars(args)))
+
+
+def snake_case_args(kwarg_dict: Dict[str, Any]) -> Dict[str, Any]:
+    """Convert user-friendly hyphenated arguments to python_friendly ones"""
+    return {key.replace("-", "_"): value for key, value in kwarg_dict.items()}
 
 
 def get_primitive(input_file='POSCAR',
