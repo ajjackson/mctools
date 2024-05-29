@@ -35,6 +35,9 @@ Repository = "https://github.com/ajjackson/mctools"
 [tool.setuptools.dynamic]
 readme = {file = ["README.md"]}
 
+[tool.black]
+line-length = 79
+
 [project.scripts]
 fold-prim = "mctools.generic.fold_prim:main"
 get-energy = "mctools.generic.get_energy:main"
