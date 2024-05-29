@@ -32,8 +32,9 @@ REF_POSCAR = textwrap.dedent(
        1
     Cartesian
       1.8050080045893520  1.8050080045893520  1.8050080045893520
-    """
+    """  # noqa:W291
 )
+
 
 @pytest.fixture
 def rattled_cu() -> ase.Atoms:
@@ -44,6 +45,7 @@ def rattled_cu() -> ase.Atoms:
     atoms.set_cell(atoms.cell.array + 1e-4 * rng.rand(3, 3))
 
     return atoms
+
 
 def test_get_primitive(rattled_cu, tmp_path, capsys) -> None:
     rattled_cu.write(tmp_path / FILENAME)
