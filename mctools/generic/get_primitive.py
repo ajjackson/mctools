@@ -68,19 +68,14 @@ def get_primitive(input_file='POSCAR',
         def vprint(*args):
             pass
 
-    try:
-        if input_format is None:
-            A = ase.io.read(input_file)
-        else:
-            A = ase.io.read(input_file, format=input_format)
-    except IOError as e:
-        raise Exception("I/O error({0}): {1}".format(e.errno, e.strerror))
+    atoms = ase.io.read(input_file, format=input_format)
+    cell = (atoms.cell.array, atoms.get_scaled_positions(), atoms.numbers)
 
     vprint(
         "# Space group: ",
         str(
             spglib.get_spacegroup(
-                A, symprec=threshold, angle_tolerance=angle_tolerance)),
+                cell, symprec=threshold, angle_tolerance=angle_tolerance)),
         '\n')
 
     cell, positions, atomic_numbers = spglib.find_primitive(
