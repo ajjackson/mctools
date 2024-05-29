@@ -79,23 +79,19 @@ def get_primitive(input_file='POSCAR',
     cell, positions, atomic_numbers = spglib.find_primitive(
         atoms_spglib, symprec=threshold, angle_tolerance=angle_tolerance)
 
-    if positions is None:
-        print("This space group doesn't have a more primitive unit cell.")
+    vprint("Primitive cell vectors:")
+    vprint(cell, '\n')
+    vprint("Atomic positions and proton numbers:")
+    for position, number in zip(positions, atomic_numbers):
+        vprint(position, '\t', number)
 
+    if output_file is None:
+        pass
     else:
-        vprint("Primitive cell vectors:")
-        vprint(cell, '\n')
-        vprint("Atomic positions and proton numbers:")
-        for position, number in zip(positions, atomic_numbers):
-            vprint(position, '\t', number)
+        atoms = ase.Atoms(
+            scaled_positions=positions,
+            cell=cell,
+            numbers=atomic_numbers,
+            pbc=True)
 
-        if output_file is None:
-            pass
-        else:
-            atoms = ase.Atoms(
-                scaled_positions=positions,
-                cell=cell,
-                numbers=atomic_numbers,
-                pbc=True)
-
-            atoms.write(output_file, format=output_format)
+        atoms.write(output_file, format=output_format)
