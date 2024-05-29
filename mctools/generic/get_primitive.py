@@ -1,4 +1,7 @@
+"""Get primitive cell from crystal structure using spglib"""
+
 from argparse import ArgumentParser
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import ase
@@ -11,7 +14,7 @@ def get_parser() -> ArgumentParser:
         description="Find a primitive unit cell using spglib")
     parser.add_argument(
         "input_file",
-        type=str,
+        type=Path,
         default="POSCAR",
         help="Path to crystal structure file, recognisable by ASE",
     )
@@ -42,6 +45,7 @@ def get_parser() -> ArgumentParser:
     parser.add_argument(
         "-o",
         "--output-file",
+        type=Path,
         default=None,
         dest="output_file",
         help="Path/filename for output",
@@ -86,36 +90,13 @@ def snake_case_args(kwarg_dict: Dict[str, Any]) -> Dict[str, Any]:
     return {key.replace("-", "_"): value for key, value in kwarg_dict.items()}
 
 
-def get_primitive(input_file='POSCAR',
-                  input_format=None,
-                  output_file=None,
-                  output_format=None,
-                  threshold=1e-5,
-                  angle_tolerance=-1.,
-                  verbose=False,
-                  precision=6):
-
-    if output_file is None:
-        verbose = True
-
-    if verbose:
-
-        def vprint(*args):
-            for arg in args:
-                print(arg, end="")
-            print("")
-
-    else:
-
-        def vprint(*args):
-            pass
-
-    float_format_str = f"{{:{precision+4}.{precision}f}}"
-
-    def format_float(x: float) -> str:
-        return float_format_str.format(x)
-
-    atoms = ase.io.read(input_file, format=input_format)
+def get_primitive_atoms(
+    atoms: ase.Atoms,
+    threshold: float = 1e-5,
+    angle_tolerance: float = -1.0,
+    print_spacegroup: bool = False,
+) -> ase.Atoms:
+    """Convert ASE Atoms to primitive cell using spglib"""
     atoms_spglib = (
         atoms.cell.array,
         atoms.get_scaled_positions(),
@@ -124,26 +105,54 @@ def get_primitive(input_file='POSCAR',
 
     spacegroup = spglib.get_spacegroup(
         atoms_spglib, symprec=threshold, angle_tolerance=angle_tolerance)
-    vprint(f"Space group: {spacegroup}")
+    if print_spacegroup:
+        print(f"Space group: {spacegroup}")
 
     cell, positions, atomic_numbers = spglib.find_primitive(
         atoms_spglib, symprec=threshold, angle_tolerance=angle_tolerance)
 
-    vprint("Primitive cell vectors:")
-    for row in cell:
-        vprint(' '.join(map(format_float, row)))
+    primitive_atoms = ase.Atoms(
+        scaled_positions=positions,
+        cell=cell,
+        numbers=atomic_numbers,
+        pbc=True)
 
-    vprint("Atomic positions and proton numbers:")
-    for position, number in zip(positions, atomic_numbers):
-        vprint(' '.join(map(format_float, position)), '\t', number)
+    return primitive_atoms
+
+
+def get_primitive(input_file: Path = Path('POSCAR'),
+                  input_format: Optional[str] = None,
+                  output_file: Optional[Path] = None,
+                  output_format: Optional[str] = None,
+                  threshold: float = 1e-5,
+                  angle_tolerance: float = -1.,
+                  verbose: bool = False,
+                  precision: int = 6) -> None:
+
+    if output_file is None:
+        verbose = True
+
+    float_format_str = f"{{:{precision+4}.{precision}f}}"
+
+    def format_float(x: float) -> str:
+        return float_format_str.format(x)
+
+    atoms = ase.io.read(input_file, format=input_format)
+    atoms = get_primitive_atoms(
+        atoms, threshold=threshold, angle_tolerance=angle_tolerance, print_spacegroup=verbose
+    )
+
+    if verbose:
+        print("Primitive cell vectors:")
+        for row in atoms.cell:
+            print(" ".join(map(format_float, row)))
+
+        print("Atomic positions and proton numbers:")
+        for position, number in zip(atoms.get_scaled_positions(), atoms.numbers):
+            print(" ".join(map(format_float, position)) + f"\t{number}")
 
     if output_file is None:
         pass
     else:
-        atoms = ase.Atoms(
-            scaled_positions=positions,
-            cell=cell,
-            numbers=atomic_numbers,
-            pbc=True)
 
         atoms.write(output_file, format=output_format)
