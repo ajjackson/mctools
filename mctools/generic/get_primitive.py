@@ -97,12 +97,5 @@ def get_primitive(input_file='POSCAR',
                 cell=cell,
                 numbers=atomic_numbers,
                 pbc=True)
-            if output_format is None:
-                try:
-                    atoms.write(output_file, vasp5=True)
-                except TypeError:
-                    atoms.write(output_file)
-            elif output_format == "vasp":
-                atoms.write(output_file, format="vasp", vasp5=True)
-            else:
-                atoms.write(output_file, format=output_format)
+
+            atoms.write(output_file, format=output_format)
