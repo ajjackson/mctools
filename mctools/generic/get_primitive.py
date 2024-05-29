@@ -1,13 +1,13 @@
-import argparse
-from typing import Any, Dict
+from argparse import ArgumentParser
+from typing import Any, Dict, List, Optional
 
 import ase
 import ase.io
 import spglib
 
 
-def main():
-    parser = argparse.ArgumentParser(
+def get_parser() -> ArgumentParser:
+    parser = ArgumentParser(
         description="Find a primitive unit cell using spglib")
     parser.add_argument(
         "input_file",
@@ -50,6 +50,7 @@ def main():
         "--output-format",
         dest="output_format",
         type=str,
+        default=None,
         help="Format for input file (needed if ASE can't guess from filename)",
     )
     parser.add_argument(
@@ -66,7 +67,16 @@ def main():
               "(Output files are not affected)"),
         default=6,
     )
-    args = parser.parse_args()
+    return parser
+
+
+def main(params: Optional[List[str]] = None):
+    parser = get_parser()
+
+    if params:
+        args = parser.parse_args(params)
+    else:
+        args = parser.parse_args()
 
     get_primitive(**snake_case_args(vars(args)))
 
