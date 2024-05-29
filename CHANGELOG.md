@@ -12,6 +12,26 @@ expected to be especially active and follows a simplified Semantic Versioning:
 
 The changelog format is inspired by [keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [Unreleased]
+
+### Packaging and testing
+- mctools now uses a pyproject.toml file
+- the mctools package has been reorganised into submodules, grouping tools that have a similar scope
+- mctools now includes a few tests; automatic testing and linting are run with github actions
+
+### Compatibility
+- `get_spacegroup` and `get_primitive` are made compatible with modern versions of spglib
+
+### Major changes
+- get_primitive output format has changed and is now a lot more legible
+  - output format can be controlled with `--precision` argument
+
+- `ase-convert` has been removed: use `ase convert` instead
+
+### New tools
+- multi-phonon-dispersion plotter based on Euphonic
+- live MACE fitting plotter
+
 ## [1.1] - 2024-04-19
 Slap a version number on "unreleased" stuff before API-breaking v2
 
@@ -50,8 +70,7 @@ Slap a version number on "unreleased" stuff before API-breaking v2
 - Packaging with pip
 - GPL license
 
-[Unreleased]: https://github.com/ajjackson/mctools/compare/v1.0...HEAD
+[Unreleased]: https://github.com/ajjackson/mctools/compare/v1.1...HEAD
+[1.1]: https://github.com/ajjackson/mctools/compare/v1.0...v1.1
 [1.0]: https://github.com/ajjackson/mctools/compare/v0.2...v1.0
 [0.2]: https://github.com/ajjackson/mctools/compare/v0.1...v0.2
-
-
